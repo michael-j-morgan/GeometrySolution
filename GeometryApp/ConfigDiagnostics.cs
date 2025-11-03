@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using Serilog.Context; // ✅ NEW
+using Serilog.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,27 +12,28 @@ namespace GeometryApp
         public static void PrintOverrides(string environment)
         {
 #if DEBUG
-            using (LogContext.PushProperty("Component", "ConfigDiagnostics")) // ✅ adds context to all logs
+            using (LogContext.PushProperty("Component", "ConfigDiagnostics"))
             {
                 Console.WriteLine("\n🔹 Comparing configuration values between base and environment:\n");
 
-                // ANSI color helpers for console output
+                // ANSI color helpers
                 string Green(string text) => $"\u001b[32m{text}\u001b[0m";
-                string Cyan(string text) => $"\u001b[36m{text}\u001b[0m";
+                string Cyan(string text)  => $"\u001b[36m{text}\u001b[0m";
 
-                // Load base + environment configs
+                // ✅ Base config (appsettings.json)
                 var baseConfig = new ConfigurationBuilder()
                     .SetBasePath(AppContext.BaseDirectory)
                     .AddJsonFile("appsettings.json", optional: false)
                     .Build();
 
+                // ✅ Environment config (appsettings.json + appsettings.{env}.json)
                 var envConfig = new ConfigurationBuilder()
                     .SetBasePath(AppContext.BaseDirectory)
                     .AddJsonFile("appsettings.json", optional: false)
                     .AddJsonFile($"appsettings.{environment}.json", optional: true)
                     .Build();
 
-                // Flatten both configs to key/value dictionaries
+                // Flatten hierarchical configuration into key:value pairs
                 Dictionary<string, string?> Flatten(IConfiguration config, string? parentKey = null)
                 {
                     var dict = new Dictionary<string, string?>();
@@ -49,7 +50,7 @@ namespace GeometryApp
                 }
 
                 var baseDict = Flatten(baseConfig);
-                var envDict = Flatten(envConfig);
+                var envDict  = Flatten(envConfig);
 
                 int overrides = 0, added = 0;
 
