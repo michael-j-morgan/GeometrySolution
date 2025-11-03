@@ -14,7 +14,9 @@ class Program
         // 1️⃣ Detect environment
         var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production";
         var logRoot = Path.Combine("logs", environment);
-        CleanOldLogs(logRoot, 14);
+        var retentionDays = configuration.GetValue<int>("Logging:Retention:Days", 14);
+        CleanOldLogs(logRoot, retentionDays);
+
         // ✅ Tell .NET exactly where to look for appsettings.json
         var configurationBuilder = new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory) // ✅ ensures configs are loaded from the output directory
@@ -27,11 +29,6 @@ class Program
         // 3️⃣ Configure Serilog with enrichers and filtered console
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(configuration)
-            .WriteTo.File(
-                path: Path.Combine("logs", environment, DateTime.Now.ToString("yyyy-MM-dd"), "geometry.log"),
-                rollingInterval: RollingInterval.Day,
-                formatter: new Serilog.Formatting.Json.JsonFormatter(),
-                shared: true)
             .CreateLogger();
 
 
