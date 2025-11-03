@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "GeometryApp": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
