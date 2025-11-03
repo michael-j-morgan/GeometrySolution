@@ -30,5 +30,10 @@ public class CircleTest
         // Assert
         Assert.Equal(2 * Math.PI * 5, result, precision: 3);
     }
+    [Fact]
+    public void Circle_WithZeroRadius_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => new Circle(0));
+    }
 }
 

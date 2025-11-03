@@ -3,20 +3,26 @@ namespace GeometryLib;
 public class Parallelogram : IShape
 {
     public string Name { get; } = "Parallelogram";
-    public double Base { get; }
-    public double Side { get; }
+    public double BaseLength { get; }
+    public double SideLength { get; }
     public double Height { get; }
 
-    public Parallelogram(double b, double height, double side)
-    {
-        if (b <= 0 || side <= 0 || height <= 0)
-            throw new ArgumentException("Base, side, and height must be positive.");
+    public Parallelogram(double baseLength, double sideLength, double height)
+{
+    if (baseLength <= 0)
+        throw new ArgumentException("Base length must be positive.", nameof(baseLength));
+    if (sideLength <= 0)
+        throw new ArgumentException("Side length must be positive.", nameof(sideLength));
+    if (height <= 0)
+        throw new ArgumentException("Height must be positive.", nameof(height));
 
-        Base = b;
-        Side = side;
-        Height = height;
-    }
+    BaseLength = baseLength;
+    SideLength = sideLength;
+    Height = height;
+}
 
-    public double Area() => Base * Height;
-    public double Perimeter() => 2 * (Base + Side);
+
+    public double Area() => BaseLength * Height;
+    public double Perimeter() => 2 * (BaseLength + SideLength);
+
 }

@@ -8,8 +8,7 @@ public class GeometryEdgeTests
     [Fact]
     public void Circle_WithZeroRadius_HasZeroArea()
     {
-        var circle = new Circle(0);
-        Assert.Equal(0, circle.Area());
+        Assert.Throws<ArgumentException>(() => new Circle(0));
     }
 
     [Fact]

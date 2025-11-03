@@ -7,13 +7,19 @@ public class Triangle : IShape
     public double B { get; }
     public double C { get; }
 
-    public Triangle(double a, double b, double c)
-    {
-        if (a + b <= c || a + c <= b || b + c <= a)
-            throw new ArgumentException("Invalid triangle sides.");
+ public Triangle(double a, double b, double c)
+{
+    if (a <= 0) throw new ArgumentException("Side a must be positive.", nameof(a));
+    if (b <= 0) throw new ArgumentException("Side b must be positive.", nameof(b));
+    if (c <= 0) throw new ArgumentException("Side c must be positive.", nameof(c));
 
-        A = a; B = b; C = c;
-    }
+    // Triangle inequality
+    if (a + b <= c || a + c <= b || b + c <= a)
+        throw new ArgumentException("Triangle inequality violated: each side must be less than the sum of the other two sides.");
+
+    A = a; B = b; C = c;
+}
+
 
     public double Perimeter() => A + B + C;
 

@@ -7,8 +7,8 @@ public class Circle : IShape
 
     public Circle(double radius)
     {
-        if (radius < 0)
-            throw new ArgumentException("Radius cannot be negative.");
+        if (radius <= 0)
+            throw new ArgumentException("Radius must be positive.", nameof(radius));
         Radius = radius;
     }
 

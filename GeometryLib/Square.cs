@@ -6,11 +6,11 @@ public class Square : IShape
     public double Side { get; }
 
     public Square(double side)
-    {
-        if (side < 0)
-            throw new ArgumentException("Side length cannot be negative.");
-        Side = side;
-    }
+{
+    if (side <= 0)
+        throw new ArgumentException("Side length must be positive.", nameof(side));
+    Side = side;
+}
 
     public double Area() => Side * Side;
     public double Perimeter() => 4 * Side;

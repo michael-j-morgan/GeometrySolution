@@ -6,13 +6,17 @@ public class Ellipse : IShape
     public double MajorAxis { get; }
     public double MinorAxis { get; }
 
-    public Ellipse (double majorAxis, double minorAxis)
-    {
-        if (majorAxis <= 0 || minorAxis <= 0)
-            throw new ArgumentException("Axis lengths must be positive.");
-        MajorAxis = majorAxis;
-        MinorAxis = minorAxis;
-    }
+public Ellipse(double majorAxis, double minorAxis)
+{
+    if (majorAxis <= 0)
+        throw new ArgumentException("Major axis must be positive.", nameof(majorAxis));
+    if (minorAxis <= 0)
+        throw new ArgumentException("Minor axis must be positive.", nameof(minorAxis));
+
+    MajorAxis = majorAxis;
+    MinorAxis = minorAxis;
+}
+
 
     public double Area() => Math.PI * MajorAxis * MinorAxis;
 
