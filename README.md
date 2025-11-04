@@ -137,7 +137,6 @@ Old logs are automatically cleaned up at startup based on the configured number 
 ## 🧑‍💻 Author
 
 **Michael Morgan**  
-Senior Software Engineer • Erie Insurance Group  
 Focus areas: Test Automation, CI/CD Pipelines, DevSecOps, and .NET Application Architecture.
 
 ---
