@@ -9,14 +9,17 @@ public class CircleExtremeTests
     public void Circle_WithMaxDoubleRadius_ReturnsValidNumericValues()
     {
         var originalOut = Console.Out;
-        using var sw = new StringWriter();
+        var sw = new StringWriter();
         Console.SetOut(sw);
 
         var circle = new Circle(double.MaxValue);
         var area = circle.Area();
         var perimeter = circle.Perimeter();
 
-        Console.SetOut(originalOut); // ✅ Restore before any Console.WriteLine
+        // ✅ Restore before writing to console again
+        Console.SetOut(originalOut);
+        sw.Dispose();
+
         Console.WriteLine($"Area: {area}, Perimeter: {perimeter}");
 
         Assert.False(double.IsInfinity(area));

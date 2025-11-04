@@ -7,38 +7,18 @@ namespace GeometryTests;
 
 public class ConfigDiagnosticsTests
 {
-    [Fact]
-    public void ConfigDiagnostics_PrintsOverridesWithoutError()
-    {
-        // Arrange
-        var env = "Development";
-        var tempDir = Path.Combine(Path.GetTempPath(), "ConfigDiagTest");
-        Directory.CreateDirectory(tempDir);
+[Fact]
+public void ConfigDiagnostics_PrintsOverridesWithoutError()
+{
+    var sw = new StringWriter();
+    Console.SetOut(sw);
 
-        File.WriteAllText(Path.Combine(tempDir, "appsettings.json"), @"{
-            ""Serilog"": { ""MinimumLevel"": { ""Default"": ""Information"" } }
-        }");
+    ConfigDiagnostics.PrintOverrides("Development");
 
-        File.WriteAllText(Path.Combine(tempDir, "appsettings.Development.json"), @"{
-            ""Serilog"": { ""MinimumLevel"": { ""Default"": ""Debug"" } }
-        }");
+    Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
+    var output = sw.ToString();
 
-        var originalBaseDir = AppContext.BaseDirectory;
-        AppDomain.CurrentDomain.SetData("APP_CONTEXT_BASE_DIRECTORY", tempDir);
-
-        // Redirect console output
-        using var sw = new StringWriter();
-        Console.SetOut(sw);
-
-        // Act
-        ConfigDiagnostics.PrintOverrides("Development");
-
-        // Assert
-        var output = sw.ToString();
-        Assert.Contains("Override", output);
-
-        // Cleanup
-        Directory.Delete(tempDir, recursive: true);
-    }
+    Assert.Contains("Override", output);
+}
     
 }
