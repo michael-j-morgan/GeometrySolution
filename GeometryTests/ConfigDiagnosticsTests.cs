@@ -31,7 +31,7 @@ public class ConfigDiagnosticsTests
         Console.SetOut(sw);
 
         // Act
-        ConfigDiagnostics.PrintOverrides(env);
+        ConfigDiagnostics.PrintOverrides("Development");
 
         // Assert
         var output = sw.ToString();
@@ -39,5 +39,11 @@ public class ConfigDiagnosticsTests
 
         // Cleanup
         Directory.Delete(tempDir, recursive: true);
+    }
+    [Fact]
+    public void ConfigDiagnostics_PrintsOverridesWithoutError()
+    {
+        var ex = Record.Exception(() => ConfigDiagnostics.PrintOverrides("Production"));
+        Assert.Null(ex);
     }
 }
