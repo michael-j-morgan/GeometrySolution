@@ -13,6 +13,7 @@ This solution models a set of geometric shapes, each capable of computing its ow
 | **GeometryApp** | Console application that registers shapes via dependency injection, logs output using Serilog, and supports per-environment configurations (`appsettings.Development.json`, `appsettings.Production.json`). |
 | **GeometryTests** | xUnit test project validating geometry calculations using a Test-Driven Development (TDD) approach. |
 
+✅ Includes 20+ xUnit tests covering shape formulas, configuration diagnostics, and log retention behavior.
 ---
 
 ## ⚙️ Features
