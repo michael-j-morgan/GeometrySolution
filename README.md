@@ -166,4 +166,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-[![.NET Build](https://github.com/michael-j-morgan/GeometrySolution/actions/workflows/dotnet.yml/badge.svg)](https://github.com/michael-j-morgan/GeometrySolution/actions)
+[![.NET Build](https://github.com/michael-j-morgan/GeometrySolution/actions/workflows/main.yml/badge.svg)](https://github.com/michael-j-morgan/GeometrySolution/actions)
