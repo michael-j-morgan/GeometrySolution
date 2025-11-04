@@ -1,0 +1,52 @@
+name: .NET Build & Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup .NET 9 SDK
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      # 3️⃣ Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore GeometrySolution.sln
+
+      # 4️⃣ Build
+      - name: Build
+        run: dotnet build GeometrySolution.sln --configuration Release --no-restore
+
+      # 5️⃣ Run tests
+      - name: Test
+        run: dotnet test GeometrySolution.sln --configuration Release --no-build --logger "trx;LogFileName=test_results.trx"
+
+      # 6️⃣ (Optional) Upload test results
+      - name: Publish test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: '**/TestResults/*.trx'
+
+      # 7️⃣ (Optional) Code coverage (if you add coverlet)
+      # - name: Test with coverage
+      #   run: dotnet test --collect:"XPlat Code Coverage"
+      #
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v5
+      #   with:
+      #     files: '**/coverage.cobertura.xml'
+      #     fail_ci_if_error: true
