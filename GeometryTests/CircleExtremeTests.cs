@@ -8,20 +8,20 @@ public class CircleExtremeTests
     [Fact]
     public void Circle_WithMaxDoubleRadius_ReturnsValidNumericValues()
     {
-        // Arrange
-        var circle = new Circle(double.MaxValue);
+        var originalOut = Console.Out;
+        using var sw = new StringWriter();
+        Console.SetOut(sw);
 
-        // Act
+        var circle = new Circle(double.MaxValue);
         var area = circle.Area();
         var perimeter = circle.Perimeter();
 
-        // Assert
-        // It’s okay if Infinity occurs (expected overflow); just ensure not NaN.
-        Assert.False(double.IsNaN(area));
-        Assert.False(double.IsNaN(perimeter));
-
-        // Optional: log behavior for visibility
+        Console.SetOut(originalOut); // ✅ Restore before any Console.WriteLine
         Console.WriteLine($"Area: {area}, Perimeter: {perimeter}");
+
+        Assert.False(double.IsInfinity(area));
+        Assert.False(double.IsNaN(perimeter));
     }
+
 
 }
