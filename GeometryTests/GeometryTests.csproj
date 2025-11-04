@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GeometryLib\GeometryLib.csproj" />
+    <ProjectReference Include="..\GeometryApp\GeometryApp.csproj" /> 
   </ItemGroup>
 
 </Project>

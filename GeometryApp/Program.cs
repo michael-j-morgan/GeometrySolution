@@ -7,7 +7,7 @@ using GeometryLib;
 using GeometryApp;
 
 
-class Program
+public class Program
 {
     static void Main()
     {

@@ -20,10 +20,16 @@ public Ellipse(double majorAxis, double minorAxis)
 
     public double Area() => Math.PI * MajorAxis * MinorAxis;
 
-    public double Perimeter() {
-      double h = Math.Pow(MajorAxis - MinorAxis, 2) / Math.Pow(MajorAxis + MinorAxis, 2);
-      return 
-        Math.PI * (MajorAxis + MinorAxis) * (1 + (3 * h) / (10 + Math.Sqrt(4 -3 * h)));
+
+        /// <summary>
+        /// Ramanujan's second approximation for ellipse circumference.
+        /// Accuracy: &lt;0.04% for typical aspect ratios.
+        /// </summary>    
+        public double Perimeter()
+    {
+        double h = Math.Pow(MajorAxis - MinorAxis, 2) / Math.Pow(MajorAxis + MinorAxis, 2);
+        return
+          Math.PI * (MajorAxis + MinorAxis) * (1 + (3 * h) / (10 + Math.Sqrt(4 - 3 * h)));
 
     }
 }
