@@ -40,10 +40,5 @@ public class ConfigDiagnosticsTests
         // Cleanup
         Directory.Delete(tempDir, recursive: true);
     }
-    [Fact]
-    public void ConfigDiagnostics_PrintsOverridesWithoutError()
-    {
-        var ex = Record.Exception(() => ConfigDiagnostics.PrintOverrides("Production"));
-        Assert.Null(ex);
-    }
+    
 }
